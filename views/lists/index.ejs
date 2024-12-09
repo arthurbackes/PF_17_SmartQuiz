@@ -1,0 +1,12 @@
+<h2>Search Authors</h2>
+<form action="/list" method="GET">
+    <label for="">Name</label>
+    <input type="text" name="name">
+    <button type="submit">Search</button>
+</form>
+<br>
+<% lists.forEach(list => { %>
+    <div>
+        <%= list.name %>
+    </div>
+<% }) %>
