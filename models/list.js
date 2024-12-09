@@ -17,7 +17,12 @@ const ListSchema = mongoose.Schema(
                     value: { type: String, required: false }, 
                 }
             ],
-            default: [], // Initialiser avec un tableau vide par défaut si aucune valeur n'est fournie
+            default: [
+                {
+                    key: "key",
+                    value: "value"
+                }
+            ], // Initialiser avec un tableau vide par défaut si aucune valeur n'est fournie
         }
     },
     {

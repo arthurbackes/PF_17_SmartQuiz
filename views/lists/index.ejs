@@ -7,6 +7,6 @@
 <br>
 <% lists.forEach(list => { %>
     <div>
-        <%= list.name %>
+        <a href="/list/<%= list._id %>"><%= list.name %></a>
     </div>
 <% }) %>
