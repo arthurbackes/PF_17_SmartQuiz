@@ -41,7 +41,7 @@ router.post("/:id/content", async (req, res) => {
         await list.save();
 
         // Rediriger vers la page de la liste
-        res.redirect(`/edit/${req.params.id}`);
+        res.redirect(`/edit/${req.params.id}/`);
     } catch (error) {
         console.error(error);
         res.status(500).send("Erreur serveur.");
@@ -66,7 +66,7 @@ router.delete("/:id/deleteitem/:itemId", async (req, res) => {
         await list.save();
 
         // Redirection après suppression
-        res.redirect(`/edit/${listId}`);
+        res.redirect(`/edit/${listId}/`);
     } catch (error) {
         console.error(error);
         res.status(500).send("Erreur serveur");

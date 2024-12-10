@@ -1,5 +1,5 @@
 <h2>Search List</h2>
-<form action="/list" method="GET">
+<form action="/list/" method="GET">
     <label for="name">Name</label>
     <input type="text" name="name">
     <button type="submit">Search</button>
@@ -8,6 +8,6 @@
 <% lists.forEach(list => { %>
     <div>
         <!-- Crée un lien vers l'ID spécifique -->
-        <a href="/list/<%= list._id %>"><%= list.name %></a>
+        <a href="/list/<%= list._id %>/"><%= list.name %></a>
     </div>
 <% }) %>
