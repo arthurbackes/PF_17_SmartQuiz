@@ -7,6 +7,8 @@ const bodyParser = require("body-parser");
 const indexRouter = require("./routes/index");
 const listsRouter = require("./routes/list");
 const editListRouter = require("./routes/editList");
+const flashcardRouter = require("./routes/flashcard");
+
 const app = express();
 const methodOverride = require("method-override");
 app.use(methodOverride("_method"));
@@ -28,6 +30,7 @@ app.use(express.json());
 app.use("/", indexRouter);
 app.use("/list", listsRouter);
 app.use("/edit", editListRouter);
+app.use("/flashcard", flashcardRouter);
 
 // Connexion à MongoDB
 mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
