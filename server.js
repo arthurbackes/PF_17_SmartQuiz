@@ -10,10 +10,9 @@ const methodOverride = require('method-override');
 const indexRouter = require("./routes/index");
 const listsRouter = require("./routes/list");
 const editListRouter = require("./routes/editList");
-const flashcardRouter = require("./routes/flashcard");
+const flashcardRouter = require("./routes/flashcards");
 
 const app = express();
-const methodOverride = require("method-override");
 app.use(methodOverride("_method"));
 
 
