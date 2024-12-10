@@ -31,11 +31,6 @@ router.get("/:id", async (req, res) => {
 });
 
 
-
-router.get("/new", (req, res) => {
-    res.render("lists/new", { list: new List()});
-})
-
 router.post("/",  async (req, res) => {
     const list = new List({
         name: req.body.name
@@ -45,7 +40,7 @@ router.post("/",  async (req, res) => {
         // res.redirect(`author/${newAuthor.id}`)
         res.redirect("list");
     } catch {
-        res.render("lists/new", {
+        res.render("lists/index", {
             list: list,
             errorMessage: "Error creating List"
         });

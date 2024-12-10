@@ -1,10 +1,9 @@
-<h2>Search List</h2>
-<form action="/list/" method="GET">
-    <label for="name">Name</label>
-    <input type="text" name="name">
-    <button type="submit">Search</button>
+<h2>New List</h2>
+<form action="list" method="POST">
+    <label for="">Name</label>
+    <input type="text" name="name" placeholder="List Name">
+    <button type="submit">Create</button>
 </form>
-<br>
 <% lists.forEach(list => { %>
     <div>
         <!-- Crée un lien vers l'ID spécifique -->
