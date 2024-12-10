@@ -1,0 +1,28 @@
+<h1>Test : <%= list.name %></h1>
+
+<!-- Affichage de la question -->
+<p>Quelle est la valeur pour la clé suivante ?</p>
+<h2><%= randomItem.key %></h2>
+
+<!-- Formulaire pour soumettre la réponse -->
+<form method="GET" action="/test/<%= list._id %>">
+    <input type="hidden" name="key" value="<%= randomItem.key %>">
+    <input type="text" name="userAnswer" placeholder="Votre réponse" required>
+    <button type="submit">Vérifier</button>
+</form>
+
+<!-- Résultats -->
+<% if (result) { %>
+    <% if (result.error) { %>
+        <p style="color: red;">Erreur : <%= result.error %></p>
+    <% } else if (result.isCorrect) { %>
+        <p style="color: green;">Bonne réponse ! 🎉</p>
+    <% } else { %>
+        <p style="color: red;">Mauvaise réponse. 😢</p>
+        <p>La réponse correcte était : <strong><%= result.correctValue %></strong></p>
+    <% } %>
+
+    <!-- Bouton pour passer à la question suivante -->
+    <br>
+    <button><a href="/test/<%= list._id %>">Passer à la question suivante</a></button>
+<% } %>

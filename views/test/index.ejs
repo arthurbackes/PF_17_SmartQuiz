@@ -1,0 +1,6 @@
+<h1>Choisir une liste pour faire un test</h1>
+<% lists.forEach(list => { %>
+    <div>
+        <a href="/test/<%= list._id %>/"><%= list.name %></a>
+    </div>
+<% }) %>

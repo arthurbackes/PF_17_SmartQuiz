@@ -11,6 +11,7 @@ const indexRouter = require("./routes/index");
 const listsRouter = require("./routes/list");
 const editListRouter = require("./routes/editList");
 const flashcardRouter = require("./routes/flashcards");
+const testRouter = require("./routes/test");
 
 const app = express();
 app.use(methodOverride("_method"));
@@ -34,6 +35,7 @@ app.use("/", indexRouter);
 app.use("/list", listsRouter);
 app.use("/edit", editListRouter);
 app.use("/flashcard", flashcardRouter);
+app.use("/test", testRouter);
 
 // Connexion à MongoDB
 mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
