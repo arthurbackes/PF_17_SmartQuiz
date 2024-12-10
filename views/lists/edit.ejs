@@ -1,0 +1,36 @@
+<h1>Éditer : <%= list.name %></h1>
+<form action="/list/<%= list._id %>?_method=PUT" method="POST">
+    <label for="name">Nom :</label>
+    <input type="text" id="name" name="name" value="<%= list.name %>" required>
+    <h2>Contenu :</h2>
+    <div id="content-container">
+        <% list.content.forEach(item => { %>
+            <div class="content-row">
+                <input type="text" name="keys[]" value="<%= item.key %>" placeholder="Key" required>
+                <input type="text" name="values[]" value="<%= item.value %>" placeholder="Value">
+                <button type="button" onclick="removeRow(this)">Supprimer</button>
+            </div>
+        <% }) %>
+    </div>
+    <button type="button" id="add-row-button">Ajouter une ligne</button>
+    <button type="submit">Enregistrer les modifications</button>
+</form>
+<a href="/list/<%= list._id %>">Annuler</a>
+<script>
+    // Ajouter une nouvelle ligne
+    document.getElementById('add-row-button').addEventListener('click', function() {
+        const container = document.getElementById('content-container');
+        const newRow = document.createElement('div');
+        newRow.classList.add('content-row');
+        newRow.innerHTML = `
+            <input type="text" name="keys[]" placeholder="Key" required>
+            <input type="text" name="values[]" placeholder="Value">
+            <button type="button" onclick="removeRow(this)">Supprimer</button>
+        `;
+        container.appendChild(newRow);
+    });
+    // Supprimer une ligne
+    function removeRow(button) {
+        button.parentElement.remove();
+    }
+</script>

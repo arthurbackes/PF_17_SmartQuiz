@@ -31,6 +31,69 @@ router.get("/:id", async (req, res) => {
 });
 
 
+router.get("/:id", async (req, res) => {
+    try {
+        const list = await List.findById(req.params.id);
+        res.render("lists/list", { list: list});
+    } catch {
+        res.render("/list")
+    }
+});
+
+
+router.get("/:id/edit", async (req, res) => {
+    try {
+        const list = await List.findById(req.params.id);
+        res.render("lists/edit", { list });
+    } catch {
+        res.redirect("/list");
+    }
+});
+
+router.put("/:id", async (req, res) => {
+    let list;
+    try {
+        // Trouver la liste par ID
+        list = await List.findById(req.params.id);
+        if (!list) {
+            throw new Error("Liste non trouvée");
+        }
+
+        // Mettre à jour le nom de la liste
+        list.name = req.body.name;
+
+        // Transformer les clés et valeurs du formulaire en tableau d'objets
+        const keys = req.body.keys || [];
+        const values = req.body.values || [];
+        if (!Array.isArray(keys) || !Array.isArray(values)) {
+            throw new Error("Les clés et valeurs doivent être des tableaux.");
+        }
+
+        // Mettre à jour le contenu
+        list.content = keys.map((key, index) => {
+            return {
+                key: key,
+                value: values[index] || null,
+            };
+        });
+
+        // Sauvegarder les modifications
+        await list.save();
+        res.redirect(`/list/${list._id}`);
+    } catch (error) {
+        console.error(error);
+        if (!list) {
+            res.redirect("/list");
+        } else {
+            res.render("lists/edit", {
+                list,
+                errorMessage: "Erreur lors de la mise à jour de la liste.",
+            });
+        }
+    }
+});
+
+
 router.post("/",  async (req, res) => {
     const list = new List({
         name: req.body.name
