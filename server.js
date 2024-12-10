@@ -6,7 +6,11 @@ const bodyParser = require("body-parser");
 
 const indexRouter = require("./routes/index");
 const listsRouter = require("./routes/list");
+const editListRouter = require("./routes/editList");
 const app = express();
+const methodOverride = require("method-override");
+app.use(methodOverride("_method"));
+
 
 app.set("view engine", "ejs")
 app.set("views", __dirname + "/views");
@@ -23,6 +27,7 @@ app.use(express.json());
 
 app.use("/", indexRouter);
 app.use("/list", listsRouter);
+app.use("/edit", editListRouter);
 
 // Connexion à MongoDB
 mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -31,7 +36,7 @@ mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopol
 
 
 // Démarrage du serveur
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3002;
 app.listen(PORT, () => {
     console.log(`Serveur démarré sur le port ${PORT}`);
 });

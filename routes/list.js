@@ -14,6 +14,24 @@ router.get("/", async(req, res) => {
     
 })
 
+router.get("/:id", async (req, res) => {
+    try {
+        // Récupérer la liste spécifique par son ID
+        const list = await List.findById(req.params.id);
+        if (!list) {
+            return res.status(404).send("Liste non trouvée");
+        }
+
+        // Passer la liste à la vue
+        res.render("lists/listView.ejs", { list });
+    } catch (error) {
+        console.error(error);
+        res.redirect("/");
+    }
+});
+
+
+
 router.get("/new", (req, res) => {
     res.render("lists/new", { list: new List()});
 })

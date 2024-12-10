@@ -1,0 +1,11 @@
+<h1><%= list.name %></h1>
+<ul>
+    <br>
+    <% list.content.forEach(item => { %>
+        <li>
+            <strong><%= item.key %>:</strong> <%= item.value %>
+        </li>
+    <% }) %>
+</ul>
+<a href="/edit/<%= list._id %>/">Modifier cette liste</a>
+<a href="/">Retour à la liste principale</a>
