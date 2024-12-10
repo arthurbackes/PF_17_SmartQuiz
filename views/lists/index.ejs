@@ -6,7 +6,6 @@
 </form>
 <% lists.forEach(list => { %>
     <div>
-        <!-- Crée un lien vers l'ID spécifique -->
         <a href="/list/<%= list._id %>/"><%= list.name %></a>
     </div>
 <% }) %>

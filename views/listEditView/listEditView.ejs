@@ -1,5 +1,10 @@
 <h2>Edit View</h2>
-<h1><%= list.name %></h1>
+<div>
+    <h1><%= list.name %></h1>
+    <form action="deletelist?_method=DELETE" method="POST">
+        <button type="submit">Supprimer la liste</button>
+    </form>
+</div>
 <ul>
     <!-- Formulaire pour ajouter un nouvel élément -->
     <form action="content/" method="POST">

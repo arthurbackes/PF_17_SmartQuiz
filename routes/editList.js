@@ -73,6 +73,26 @@ router.delete("/:id/deleteitem/:itemId", async (req, res) => {
     }
 });
 
+router.delete("/:id/deletelist", async (req, res) => {
+    try {
+        const listId = req.params.id; // Récupérer l'ID de la liste à supprimer
+
+        // Rechercher et supprimer la liste
+        const deletedList = await List.findByIdAndDelete(listId);
+
+        if (!deletedList) {
+            return res.status(404).send("Liste non trouvée");
+        }
+
+        // Rediriger vers la liste principale après suppression
+        res.redirect(`/list`);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Erreur serveur");
+    }
+});
+
+
 
 
 
