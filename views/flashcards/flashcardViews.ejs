@@ -1,0 +1,42 @@
+<div>
+    <h1><%= list.name %></h1>
+    <div id="content-viewer">
+        <p id="content-display"><%= list.content.length > 0 ? list.content[0].key : "Aucun contenu" %></p>
+    </div>
+
+    <button id="prev-item">Élément précédent</button>
+    <button id="switch-display">Afficher Valeur</button>
+    <button id="next-item">Élément suivant</button>
+</div>
+
+<script>
+    const content = <%- JSON.stringify(list.content) %>;
+    let currentIndex = 0;
+    let showKey = true;
+    const display = document.getElementById('content-display');
+    document.getElementById('switch-display').addEventListener('click', () => {
+        showKey = !showKey;
+        document.getElementById('switch-display').innerText = showKey ? "Afficher Valeur" : "Afficher Clé";
+        updateDisplay();
+    });
+    document.getElementById('next-item').addEventListener('click', () => {
+        if (content.length > 0) {
+            currentIndex = (currentIndex + 1) % content.length;
+            updateDisplay();
+        }
+    });
+    document.getElementById('prev-item').addEventListener('click', () => {
+        if (content.length > 0) {
+            currentIndex = (currentIndex - 1 + content.length) % content.length;
+            updateDisplay();
+        }
+    });
+    function updateDisplay() {
+        if (content.length > 0) {
+            display.innerText = showKey ? content[currentIndex].key : content[currentIndex].value || "Valeur vide";
+        } else {
+            display.innerText = "Aucun contenu";
+        }
+    }
+    updateDisplay();
+</script>
