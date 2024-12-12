@@ -1,0 +1,118 @@
+/* Reset des marges et styles par défaut */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Styles de base */
+body {
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #4facfe, #00f2fe);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  text-align: center;
+}
+
+/* Layout général */
+.layout {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* En-tête */
+.header {
+  background: transparent;
+  padding: 20px 0;
+}
+
+.hero {
+  margin-top: 10%;
+}
+
+.hero-title {
+  font-size: 3em;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.hero-subtitle {
+  font-size: 1.2em;
+  margin-bottom: 30px;
+}
+
+.nav {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+/* Boutons */
+.btn {
+  text-decoration: none;
+  background-color: #fff;
+  color: #4facfe;
+  padding: 10px 20px;
+  border-radius: 25px;
+  font-size: 1em;
+  font-weight: bold;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.btn:hover {
+  background-color: #4facfe;
+  color: #fff;
+}
+
+.btn-primary {
+  background-color: #fff;
+  color: #4facfe;
+}
+
+.btn-secondary {
+  background-color: transparent;
+  border: 2px solid #fff;
+}
+
+.btn-secondary:hover {
+  background-color: #fff;
+  color: #4facfe;
+}
+
+/* Contenu principal */
+.content {
+  flex: 1;
+  padding: 20px;
+}
+
+/* Pied de page */
+.footer {
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.2);
+  font-size: 0.9em;
+}
+
+.form-container {
+  max-width: 800px;
+  margin: auto;
+  padding: 2rem;
+  background: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.table th, .table td {
+  text-align: center;
+  vertical-align: middle;
+}
+
+.btn-sm {
+  font-size: 0.875rem;
+}
+
+.form-label {
+  font-weight: bold;
+}

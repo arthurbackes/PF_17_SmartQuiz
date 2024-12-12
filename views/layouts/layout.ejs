@@ -1,13 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SmartQuiz</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smarquiz - <%= title || "Accueil" %></title> <!-- Ajout d'un titre dynamique -->
+  <link rel="stylesheet" href="/styles.css">
 </head>
-<body>
-    <%- include("../partials/header.ejs") %>
-    <%- include("../partials/errorMessage.ejs") %>
+<body class="layout">
+  <header class="header">
+    <div class="hero">
+      <h1 class="hero-title">Bienvenue sur Smarquiz</h1>
+      <p class="hero-subtitle">Facilitez votre apprentissage grâce à des listes de révision personnalisées.</p>
+      <nav class="nav">
+        <a href="/lists" class="btn btn-primary">Voir les Listes</a>
+        <a href="/lists/new" class="btn btn-secondary">Créer une Nouvelle Liste</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Ajout du contenu spécifique à chaque page -->
+  <main class="content">
     <%- body %>
+  </main>
+
+  <footer class="footer">
+    <p>&copy; 2024 Smarquiz. Tous droits réservés.</p>
+  </footer>
 </body>
 </html>
+
+

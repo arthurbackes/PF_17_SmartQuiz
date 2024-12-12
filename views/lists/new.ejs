@@ -1,6 +1,116 @@
-<h2>New Author</h2>
-<form action="/list" method="POST">
-    <%- include("_form_fields") %>
-    <a href="/list">Cancel</a>
-    <button type="submit">Create</button>
+<%- include('../partials/header') %>
+
+<h1 class="text-center">Créer une Nouvelle Liste</h1>
+
+<form action="/lists" method="POST" class="form-container">
+  <div class="form-group">
+    <label for="name" class="form-label">Nom de la Liste</label>
+    <input
+      type="text"
+      id="name"
+      name="name"
+      class="form-control"
+      value="<%= list.name ? list.name : '' %>"
+      required
+      placeholder="Entrez le nom de la liste">
+  </div>
+
+  <table class="table table-bordered mt-4">
+    <thead class="table-dark">
+      <tr>
+        <th>Clé</th>
+        <th>Valeur</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody id="list-rows">
+      <% if (list.content.length > 0) { %>
+        <% list.content.forEach((item, index) => { %>
+          <tr>
+            <td>
+              <input
+                type="text"
+                name="content[<%= index %>][key]"
+                class="form-control"
+                value="<%= item.key %>"
+                required
+                placeholder="Clé">
+            </td>
+            <td>
+              <input
+                type="text"
+                name="content[<%= index %>][value]"
+                class="form-control"
+                value="<%= item.value %>"
+                placeholder="Valeur">
+            </td>
+            <td>
+              <button type="button" class="btn btn-danger btn-sm remove-row">Supprimer</button>
+            </td>
+          </tr>
+        <% }) %>
+      <% } else { %>
+        <tr>
+          <td>
+            <input
+              type="text"
+              name="content[0][key]"
+              class="form-control"
+              required
+              placeholder="Clé">
+          </td>
+          <td>
+            <input
+              type="text"
+              name="content[0][value]"
+              class="form-control"
+              placeholder="Valeur">
+          </td>
+          <td>
+            <button type="button" class="btn btn-danger btn-sm remove-row">Supprimer</button>
+          </td>
+        </tr>
+      <% } %>
+    </tbody>
+  </table>
+
+  <button type="button" id="add-row" class="btn btn-success btn-sm">Ajouter une Ligne</button>
+  <button type="submit" class="btn btn-primary mt-3">Enregistrer la Liste</button>
 </form>
+
+<%- include('../partials/footer') %>
+
+<script>
+  document.getElementById('add-row').addEventListener('click', () => {
+    const table = document.getElementById('list-rows');
+    const rowCount = table.rows.length;
+    const row = `
+      <tr>
+        <td>
+          <input
+            type="text"
+            name="content[${rowCount}][key]"
+            class="form-control"
+            required
+            placeholder="Clé">
+        </td>
+        <td>
+          <input
+            type="text"
+            name="content[${rowCount}][value]"
+            class="form-control"
+            placeholder="Valeur">
+        </td>
+        <td>
+          <button type="button" class="btn btn-danger btn-sm remove-row">Supprimer</button>
+        </td>
+      </tr>`;
+    table.insertAdjacentHTML('beforeend', row);
+  });
+
+  document.addEventListener('click', (e) => {
+    if (e.target && e.target.classList.contains('remove-row')) {
+      e.target.closest('tr').remove();
+    }
+  });
+</script>

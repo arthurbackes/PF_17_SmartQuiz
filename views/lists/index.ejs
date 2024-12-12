@@ -1,12 +1,19 @@
-<h2>Search Authors</h2>
-<form action="/list" method="GET">
-    <label for="">Name</label>
-    <input type="text" name="name">
-    <button type="submit">Search</button>
-</form>
-<br>
-<% lists.forEach(list => { %>
-    <div>
-        <%= list.name %>
-    </div>
-<% }) %>
+<ul class="list-group">
+    <% lists.forEach(list => { %>
+        <li class="list-item">
+            <h3><%= list.name %></h3>
+            <small>Créée le : <%= list.createdAt.toLocaleDateString() %></small>
+            <% if (list.content.length > 0) { %>
+                <ul>
+                    <% list.content.forEach(item => { %>
+                        <li>
+                            <strong><%= item.key %>:</strong> <%= item.value %>
+                        </li>
+                    <% }) %>
+                </ul>
+            <% } else { %>
+                <p>Pas de contenu pour cette liste.</p>
+            <% } %>
+        </li>
+    <% }); %>
+</ul>
