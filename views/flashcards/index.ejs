@@ -3,12 +3,13 @@
     <div class="mt-6 flex flex-col w-full max-w-lg">
         <% lists.forEach(list => { %>
             <a
-                    class="border bg-white border-oceanBlue rounded-lg p-4 mb-4 text-center text-lg font-medium text-deepBlue hover:bg-oceanBlue hover:text-white hover:border-oceanBlue transition-all"
-                    href="/list/<%= list._id %>"
+                class="border bg-white border-oceanBlue rounded-lg p-4 mb-4 text-center text-lg font-medium text-deepBlue hover:bg-oceanBlue hover:text-white hover:border-oceanBlue transition-all"
+                href="/flashcard/<%= list._id %>"
             >
                 <%= list.name %>
             </a>
         <% }) %>
     </div>
 </main>
+
 

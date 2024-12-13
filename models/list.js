@@ -4,27 +4,30 @@ const ListSchema = mongoose.Schema(
     {
         user_id: {
             type: BigInt,
-            default: 1
+            default: 1,
         },
         name: {
             type: String,
-            required: [true, "Please provide a name"], // Correction du message d'erreur
+            required: [true, "Please provide a name"],
         },
         content: {
             type: [
                 {
-                    _id: { type: mongoose.Schema.Types.ObjectId, default: () => new mongoose.Types.ObjectId() },
-                    key: { type: String, required: true }, // Exemples de champs dans chaque objet
-                    value: { type: String, required: false }, 
-                }
+                    _id: {
+                        type: mongoose.Schema.Types.ObjectId,
+                        default: () => new mongoose.Types.ObjectId(),
+                    },
+                    key: { type: String, required: true },
+                    value: { type: String, required: false },
+                },
             ],
             default: [
                 {
                     key: "key",
-                    value: "value"
-                }
-            ], // Initialiser avec un tableau vide par défaut si aucune valeur n'est fournie
-        }
+                    value: "value",
+                },
+            ],
+        },
     },
     {
         timestamps: true,
