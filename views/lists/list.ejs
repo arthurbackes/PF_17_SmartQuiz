@@ -1,0 +1,13 @@
+<h1>Liste : <%= list.name %></h1>
+
+<% if (list.content && list.content.length > 0) { %>
+    <ul>
+        <% list.content.forEach(item => { %>
+            <li><%= item.key %>: <%= item.value || "Aucune valeur" %></li>
+        <% }) %>
+    </ul>
+<% } else { %>
+    <p>Cette liste est vide.</p>
+<% } %>
+<a href="/list">Retour aux listes</a>
+<a href="<%= list._id %>/edit">Edit</a>

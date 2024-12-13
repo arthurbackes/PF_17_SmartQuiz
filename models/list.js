@@ -13,11 +13,17 @@ const ListSchema = mongoose.Schema(
         content: {
             type: [
                 {
+                    _id: { type: mongoose.Schema.Types.ObjectId, default: () => new mongoose.Types.ObjectId() },
                     key: { type: String, required: true }, // Exemples de champs dans chaque objet
                     value: { type: String, required: false }, 
                 }
             ],
-            default: [], // Initialiser avec un tableau vide par défaut si aucune valeur n'est fournie
+            default: [
+                {
+                    key: "key",
+                    value: "value"
+                }
+            ], // Initialiser avec un tableau vide par défaut si aucune valeur n'est fournie
         }
     },
     {

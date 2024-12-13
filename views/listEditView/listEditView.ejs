@@ -1,0 +1,28 @@
+<h2>Edit View</h2>
+<div>
+    <h1><%= list.name %></h1>
+    <form action="deletelist?_method=DELETE" method="POST">
+        <button type="submit">Supprimer la liste</button>
+    </form>
+</div>
+<ul>
+    <!-- Formulaire pour ajouter un nouvel élément -->
+    <form action="content/" method="POST">
+        <input type="text" name="key" placeholder="Key" required>
+        <input type="text" name="value" placeholder="Value">
+        <button type="submit">Ajouter</button>
+    </form>
+    <br>
+    <!-- Affichage des éléments existants -->
+    <% list.content.forEach((item, index) => { %>
+    <form action="deleteitem/<%= item._id %>?_method=DELETE" method="POST">
+        <li>
+            <strong><%= item.key %>:</strong> <%= item.value %>
+            <button type="submit">Supprimer</button>
+        </li>
+    </form>
+    <% }) %>
+    
+</ul>
+<a href="/edit/<%= list._id %>/">Modifier cette liste</a>
+<a href="/">Retour à la liste principale</a>

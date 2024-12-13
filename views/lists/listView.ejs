@@ -1,0 +1,14 @@
+<main class="flex flex-col w-full items-center font-parkinsans">
+    <h1 class="font-bold text-4xl mt-6"><%= list.name %></h1>
+
+    <ul>
+        <br>
+        <% list.content.forEach(item => { %>
+            <li>
+                <strong><%= item.key %>:</strong> <%= item.value %>
+            </li>
+        <% }) %>
+    </ul>
+    <a class="font-bold hover:text-oceanBlue mt-8" href="/edit/<%= list._id %>/">Modifier cette liste</a>
+    <a class="font-bold hover:text-oceanBlue" href="/">Retour à la liste principale</a>
+</main>
