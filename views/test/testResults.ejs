@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Résultats du Test</title>
+</head>
+<body>
+    <h1>Résultats</h1>
+    <p>Score: <%= score %> / <%= totalQuestions %></p>
+
+    <% if (isPassed) { %>
+        <p>Félicitations, vous avez réussi !</p>
+    <% } else { %>
+        <p>Dommage, essayez encore.</p>
+    <% } %>
+
+    <a href="/test">Retour</a>
+</body>
+</html>

@@ -1,14 +1,10 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
-const ListSchema = mongoose.Schema(
+const ListSchema = new mongoose.Schema(
     {
-        user_id: {
-            type: BigInt,
-            default: 1,
-        },
         name: {
             type: String,
-            required: [true, "Please provide a name"],
+            required: [true, "Veuillez fournir un nom"],
         },
         content: {
             type: [
@@ -18,15 +14,10 @@ const ListSchema = mongoose.Schema(
                         default: () => new mongoose.Types.ObjectId(),
                     },
                     key: { type: String, required: true },
-                    value: { type: String, required: false },
+                    value: { type: String, required: true },
                 },
             ],
-            default: [
-                {
-                    key: "key",
-                    value: "value",
-                },
-            ],
+            default: [],
         },
     },
     {
@@ -34,4 +25,4 @@ const ListSchema = mongoose.Schema(
     }
 );
 
-module.exports = mongoose.model("List", ListSchema);
+module.exports = mongoose.models.List || mongoose.model("List", ListSchema);

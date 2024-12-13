@@ -2,116 +2,75 @@ const express = require("express");
 const router = express.Router();
 const List = require("../models/list");
 
-
-
-router.get("/", async(req, res) => {
-    try{
-        const lists = await List.find({});
-        res.render("lists/index", {lists: lists});
-    } catch {
-        res.redirect("/");
-    }
-
-})
-
-router.get("/:id", async (req, res) => {
+// Afficher toutes les listes
+router.get("/", async (req, res) => {
     try {
-        // Récupérer la liste spécifique par son ID
-        const list = await List.findById(req.params.id);
-        if (!list) {
-            return res.status(404).send("Liste non trouvée");
-        }
-
-        // Passer la liste à la vue
-        res.render("lists/listView.ejs", { list });
+        const lists = await List.find({});
+        res.render("lists/index", { lists });
     } catch (error) {
         console.error(error);
         res.redirect("/");
     }
 });
 
-
+// Afficher une liste spécifique
 router.get("/:id", async (req, res) => {
     try {
         const list = await List.findById(req.params.id);
-        res.render("lists/list", { list: list});
-    } catch {
-        res.render("/list")
+        if (!list) return res.status(404).send("Liste introuvable");
+        res.render("lists/listView", { list });
+    } catch (error) {
+        console.error(error);
+        res.redirect("/");
     }
 });
 
-
-router.get("/:id/edit", async (req, res) => {
+// Ajouter une nouvelle liste
+router.post("/", async (req, res) => {
+    const list = new List({ name: req.body.name });
     try {
-        const list = await List.findById(req.params.id);
-        res.render("lists/edit", { list });
-    } catch {
-        res.redirect("/list");
+        const newList = await list.save();
+        res.redirect(`/list/${newList._id}`);
+    } catch (error) {
+        console.error(error);
+        res.render("lists/index", { errorMessage: "Erreur lors de la création de la liste." });
     }
 });
 
+// Modifier une liste existante
 router.put("/:id", async (req, res) => {
     let list;
     try {
-        // Trouver la liste par ID
         list = await List.findById(req.params.id);
-        if (!list) {
-            throw new Error("Liste non trouvée");
-        }
+        if (!list) throw new Error("Liste introuvable");
 
-        // Mettre à jour le nom de la liste
         list.name = req.body.name;
+        list.content = req.body.keys.map((key, index) => ({
+            key,
+            value: req.body.values[index] || null,
+        }));
 
-        // Transformer les clés et valeurs du formulaire en tableau d'objets
-        const keys = req.body.keys || [];
-        const values = req.body.values || [];
-        if (!Array.isArray(keys) || !Array.isArray(values)) {
-            throw new Error("Les clés et valeurs doivent être des tableaux.");
-        }
-
-        // Mettre à jour le contenu
-        list.content = keys.map((key, index) => {
-            return {
-                key: key,
-                value: values[index] || null,
-            };
-        });
-
-        // Sauvegarder les modifications
         await list.save();
         res.redirect(`/list/${list._id}`);
     } catch (error) {
         console.error(error);
-        if (!list) {
-            res.redirect("/list");
+        if (list) {
+            res.render("lists/edit", { list, errorMessage: "Erreur lors de la mise à jour de la liste." });
         } else {
-            res.render("lists/edit", {
-                list,
-                errorMessage: "Erreur lors de la mise à jour de la liste.",
-            });
+            res.redirect("/list");
         }
     }
 });
 
-
-router.post("/",  async (req, res) => {
-    const list = new List({
-        name: req.body.name
-    })
+// Supprimer une liste
+router.delete("/:id", async (req, res) => {
     try {
-        const newList = await list.save();
-        // res.redirect(`author/${newAuthor.id}`)
-        res.redirect("list");
-    } catch {
-        res.render("lists/index", {
-            list: list,
-            errorMessage: "Error creating List"
-        });
+        await List.findByIdAndDelete(req.params.id);
+        res.redirect("/list");
+    } catch (error) {
+        console.error(error);
+        res.redirect("/list");
     }
-})
-
-
-
-
+});
 
 module.exports = router;

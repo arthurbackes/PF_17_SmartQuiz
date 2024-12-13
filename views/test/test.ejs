@@ -1,28 +1,23 @@
-<h1>Test : <%= list.name %></h1>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Test - <%= list.name %></title>
+</head>
+<body>
+    <h1>Test de <%= list.name %></h1>
 
-<!-- Affichage de la question -->
-<p>Quelle est la valeur pour la clé suivante ?</p>
-<h2><%= randomItem.key %></h2>
+    <form action="/test/submit" method="POST">
+        <input type="hidden" name="listId" value="<%= list._id %>">
 
-<!-- Formulaire pour soumettre la réponse -->
-<form method="GET" action="/test/<%= list._id %>">
-    <input type="hidden" name="key" value="<%= randomItem.key %>">
-    <input type="text" name="userAnswer" placeholder="Votre réponse" required>
-    <button type="submit">Vérifier</button>
-</form>
+        <% questions.forEach((question, index) => { %>
+            <div>
+                <label><%= question.key %></label>
+                <input type="text" name="answers[<%= index %>]" required>
+            </div>
+        <% }); %>
 
-<!-- Résultats -->
-<% if (result) { %>
-    <% if (result.error) { %>
-        <p style="color: red;">Erreur : <%= result.error %></p>
-    <% } else if (result.isCorrect) { %>
-        <p style="color: green;">Bonne réponse ! 🎉</p>
-    <% } else { %>
-        <p style="color: red;">Mauvaise réponse. 😢</p>
-        <p>La réponse correcte était : <strong><%= result.correctValue %></strong></p>
-    <% } %>
-
-    <!-- Bouton pour passer à la question suivante -->
-    <br>
-    <button><a href="/test/<%= list._id %>">Passer à la question suivante</a></button>
-<% } %>
+        <button type="submit">Soumettre</button>
+    </form>
+</body>
+</html>
