@@ -1,0 +1,12 @@
+<h2>List Details</h2>
+<p><strong>Name:</strong> <%= list.name %></p>
+<p><strong>Created At:</strong> <%= list.createdAt.toDateString() %></p>
+
+<h3>Content</h3>
+<ul>
+    <% list.content.forEach(item => { %>
+        <li><strong><%= item.key %>:</strong> <%= item.value %></li>
+    <% }) %>
+</ul>
+
+<a href="/list">Back to List</a>
