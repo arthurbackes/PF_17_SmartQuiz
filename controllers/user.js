@@ -13,7 +13,12 @@ exports.signup = (req, res, next) => {
             });
             user.save()
                 .then((user) => {
-                    res.status(201).json({ message : "User successfully saved" });
+                    req.session.user = {
+                        email: user.email,
+                    };
+                    req.session.isAuthenticated = true;
+                    res.status(201).json({ message : "User successfully saved and session created" });
+                    res.redirect("/");
                 })
                 .catch(err => res.status(400).json({error: "Email used"}));
 
@@ -34,9 +39,11 @@ exports.login = (req, res, next) => {
                         if (!valid){
                             res.status(401).json({message: "User or password incorrect"});
                         } else {
-                            res.status(200).json({
-                                message: "User connected"
-                            });
+                            req.session.user = {
+                                email: user.email,
+                            };
+                            req.session.isAuthenticated = true;
+                            res.redirect("/");
                         }
                     })
                     .catch((err) => {
