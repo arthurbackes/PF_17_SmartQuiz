@@ -1,0 +1,20 @@
+<main>
+    <section class="flex flex-col justify-center items-center h-full mt-12">
+        <div class="bg-white border-4 border-solid border-black rounded-2xl p-10 ">
+            <h1 class="font-bold uppercase mb-8 text-center text-xl">Register</h1>
+            <form action="/api/users/register" method="POST" class="flex flex-col gap-2">
+                <label for="username">Username:</label>
+                <input class="border-solid border-black border-2 rounded-xl text-center" type="text" id="username" name="username" required>
+                <br>
+                <label for="email">Email:</label>
+                <input class="border-solid border-black border-2 rounded-xl text-center" type="email" id="email" name="email" required>
+                <br>
+                <label for="password">Password:</label>
+                <input class="border-solid border-black border-2 rounded-xl text-center" type="password" id="password" name="password" required>
+                <br>
+                <button class="bg-lightBlue rounded-2xl py-2 hover:bg-skyBlue" type="submit">Register</button>
+            </form>
+            <a class="italic font-thin mt-6 hover:text-oceanBlue cursor-pointer">Do you already have an account ? </a>
+        </div>
+    </section>
+</main>
