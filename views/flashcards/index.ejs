@@ -1,6 +1,10 @@
-<h1>Choisir une liste pour étudier en flashcard</h1>
-<% lists.forEach(list => { %>
-    <div>
-        <a href="/flashcard/<%= list._id %>/"><%= list.name %></a>
+<main class="flex flex-col text-center">
+    <h1 class="font-bold text-4xl mt-6">Choisir une liste pour étudier en flashcard</h1>
+    <div class="mt-4 flex flex-col gap-4">
+        <% lists.forEach(list => { %>
+            <div>
+                <a class="text-xl mt-4 hover:text-oceanBlue hover:font-bold" href="/list/<%= list._id %>"><%= list.name %></a>
+            </div>
+        <% }) %>
     </div>
-<% }) %>
+</main>
