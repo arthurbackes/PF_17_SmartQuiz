@@ -15,11 +15,11 @@ exports.signup = (req, res, next) => {
                 .then((user) => {
                     res.status(201).json({ message : "User successfully saved" });
                 })
-                .catch(err => res.status(400).json({error: err}));
+                .catch(err => res.status(400).json({error: "Email used"}));
 
         })
         .catch((err) => {
-            res.status(500).json({error : err})
+            res.status(500).json({error : "Error with server"})
         })
 };
 
