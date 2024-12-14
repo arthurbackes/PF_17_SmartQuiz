@@ -1,74 +1,52 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const List = require('../models/list');
+const List = require("../models/list");
 
-// Afficher la liste des tests
-router.get('/', async (req, res) => {
+router.get("/", async (req, res) =>{
     try {
         const lists = await List.find({});
-        res.render('test/index', { lists });
-    } catch (error) {
-        console.error(error);
-        res.status(500).send("Erreur serveur");
+        res.render("test/index", {lists: lists})
+    } catch {
+        res.redirect("/test")
     }
 });
 
-// Afficher le test d'une liste spécifique
-router.get('/:id', async (req, res) => {
+router.get("/:id", async (req, res) => {
     try {
         const list = await List.findById(req.params.id);
-        if (!list) return res.status(404).send("Liste introuvable");
-        res.render('test/test', { list, questions: list.content });
-    } catch (error) {
-        console.error(error);
-        res.status(500).send("Erreur serveur");
-    }
-});
-
-router.post('/submit', async (req, res) => {
-    const { answers, listId } = req.body;
-
-    console.log('Réponses reçues:', req.body);  // Log complet de req.body pour tout voir
-    console.log('Réponses utilisateur:', answers); // Log des réponses
-
-    try {
-        const list = await List.findById(listId);
-        if (!list) return res.status(404).send("Liste introuvable");
-
-        const questions = list.content || [];
-        let score = 0;
-
-        // Si les réponses sont mal formatées, retour avec message d'erreur
-        if (!answers || !Array.isArray(answers)) {
-            return res.render('test/testResults', {
-                score,
-                totalQuestions: questions.length,
-                isPassed: false,
-                errorMessage: "Veuillez répondre à toutes les questions.",
-            });
+        if (!list) {
+            return res.status(404).send("Liste non trouvée");
         }
 
-        // Vérification des réponses
-        questions.forEach((question, index) => {
-            const userAnswer = answers[index]?.trim().toLowerCase();  // Réponse de l'utilisateur
-            const correctAnswer = question.value?.trim().toLowerCase();  // Réponse correcte
+        // Si une clé et une réponse sont fournies dans les requêtes, effectuez la vérification
+        const { key, userAnswer } = req.query; // On récupère les valeurs depuis la requête
+        let result = null;
 
-            if (userAnswer === correctAnswer) {
-                score++;
+        if (key && userAnswer) {
+            const item = list.content.find((item) => item.key === key);
+
+            if (item) {
+                result = {
+                    isCorrect: item.value === userAnswer,
+                    correctValue: item.value,
+                };
+            } else {
+                result = { error: "Clé introuvable" };
             }
-        });
+        }
 
-        // Affichage des résultats
-        res.render('test/testResults', {
-            score,
-            totalQuestions: questions.length,
-            isPassed: score === questions.length,
-        });
+        // Sélectionnez une clé aléatoire s'il n'y a pas encore de vérification
+        const randomItem = key ? list.content.find((item) => item.key === key) : list.content[Math.floor(Math.random() * list.content.length)];
+
+        res.render("test/test", { list, randomItem, result });
     } catch (error) {
         console.error(error);
-        res.status(500).send("Erreur serveur");
+        res.redirect("/");
     }
 });
 
+
+
+// Vérifier la réponse soumise par l'utilisateur
 
 module.exports = router;
