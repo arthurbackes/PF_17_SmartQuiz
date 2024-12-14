@@ -3,7 +3,7 @@
         <a href="/" class="font-bold text-5xl text-oceanBlue md:text-4xl">SmartQuiz</a>
         <ul class="flex p-4 items-center w-full gap-8">
             <li>
-                <a href="/list" class="hover:text-oceanBlue font-bold">Lists</a>
+                <a href="/list" class="hover:text-oceanBlue font-bold">Mes listes</a>
             </li>
             <li>
                 <a href="/flashcard/" class="hover:text-oceanBlue font-bold">Flashcard</a>
@@ -15,14 +15,14 @@
         <% if (!isAuthenticated) { %>
             <ul class="flex gap-6 mr-2">
                 <li>
-                    <a href="/user/signup" class="hover:text-oceanBlue font-bold cursor-pointer">SignUp</a>
+                    <a href="/user/signup" class="hover:text-oceanBlue font-bold cursor-pointer">Créer un compte</a>
                 </li>
                 <li>
-                    <a href="/user/login" class="hover:text-oceanBlue font-bold cursor-pointer mr-2">Login</a>
+                    <a href="/user/login" class="hover:text-oceanBlue font-bold cursor-pointer mr-2">Se connecter</a>
                 </li>
             </ul>
         <% } else { %>
-            <a href="/" class="hover:text-oceanBlue font-bold cursor-pointer">MyProfil</a>
+            <a href="/" class="hover:text-oceanBlue font-bold cursor-pointer">Mon profil</a>
             <a href="/" class="hover:text-oceanBlue font-bold cursor-pointer">Déconnexion</a>
         <% }%>
     </nav>

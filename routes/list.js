@@ -30,7 +30,7 @@ router.post("/", async (req, res) => {
     const list = new List({ name: req.body.name });
     try {
         const newList = await list.save();
-        res.redirect(`/list/${newList._id}`);
+        res.redirect(`/list`);
     } catch (error) {
         console.error(error);
         res.render("lists/index", { errorMessage: "Erreur lors de la création de la liste." });
