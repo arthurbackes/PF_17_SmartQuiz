@@ -12,6 +12,7 @@ module.exports = {
       },
       fontFamily: {
         parkinsans: ["Parkinsans", "sans-serif"],
+        ubuntu: ["Ubuntu", "sans-serif"],
       }
     },
   },

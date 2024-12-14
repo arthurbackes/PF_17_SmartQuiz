@@ -1,0 +1,17 @@
+<main>
+    <section class="flex flex-col justify-center items-center mt-12">
+        <div class="bg-white border-4 border-solid border-black rounded-2xl p-10">
+            <h1 class="font-bold uppercase mb-8 text-center text-xl">Login</h1>
+            <form action="login" method="POST" class="flex flex-col gap-2">
+                <label for="email">Email:</label>
+                <input class="border-solid border-black border-2 rounded-xl text-center" type="text" id="email" name="email" required>
+                <br>
+                <label for="password">Password:</label>
+                <input class="border-solid border-black border-2 rounded-xl text-center" type="password" id="password" name="password" required>
+                <br>
+                <button class="bg-lightBlue rounded-2xl py-2 hover:bg-skyBlue" type="submit">Login</button>
+            </form>
+            <a href="/user/signup" class="italic cursor-pointer font-thin hover:text-oceanBlue ">Don't have an account? Register here.</a>
+        </div>
+    </section>
+</main>
