@@ -1,36 +1,67 @@
-<div>
-    <h1><%= list.name %></h1>
-    <div id="content-viewer">
-        <p id="content-display"><%= list.content.length > 0 ? list.content[0].key : "Aucun contenu" %></p>
+<div class="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-6">
+    <!-- Titre de la liste de flashcards -->
+    <h1 class="text-3xl font-semibold text-gray-800 mb-6">
+        <%= list.name %>
+    </h1>
+
+    <!-- Zone de contenu (question/réponse) -->
+    <div id="content-viewer" class="bg-white rounded-lg shadow-lg p-8 w-full max-w-lg text-center mb-6">
+        <p id="content-display" class="text-xl font-bold text-gray-700 transition-all">
+            <%= list.content.length > 0 ? list.content[0].key : "Aucun contenu" %>
+        </p>
     </div>
 
-    <button id="prev-item">Élément précédent</button>
-    <button id="switch-display">Afficher Valeur</button>
-    <button id="next-item">Élément suivant</button>
+    <!-- Boutons de navigation et d'affichage -->
+    <div class="flex space-x-4">
+        <!-- Bouton précédent -->
+        <button id="prev-item" class="bg-blue-500 text-white hover:bg-blue-400 px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600">
+            Élément précédent
+        </button>
+
+        <!-- Bouton pour afficher la réponse -->
+        <button id="switch-display" class="bg-green-500 text-white hover:bg-green-400 px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600">
+            Afficher Valeur
+        </button>
+
+        <!-- Bouton suivant -->
+        <button id="next-item" class="bg-blue-500 text-white hover:bg-blue-400 px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600">
+            Élément suivant
+        </button>
+    </div>
 </div>
 
 <script>
     const content = <%- JSON.stringify(list.content) %>;
     let currentIndex = 0;
-    let showKey = true;
+    let showKey = true; // Commence avec la question affichée (key)
     const display = document.getElementById('content-display');
+
+    // Fonction pour alterner l'affichage entre la clé (question) et la valeur (réponse)
     document.getElementById('switch-display').addEventListener('click', () => {
-        showKey = !showKey;
+        showKey = !showKey; // Alterne l'état entre question et réponse
         document.getElementById('switch-display').innerText = showKey ? "Afficher Valeur" : "Afficher Clé";
         updateDisplay();
     });
+
+    // Fonction pour afficher l'élément suivant
     document.getElementById('next-item').addEventListener('click', () => {
         if (content.length > 0) {
-            currentIndex = (currentIndex + 1) % content.length;
+            currentIndex = (currentIndex + 1) % content.length; // Passe à l'élément suivant
+            showKey = true; // Toujours afficher la question (clé) lorsque l'on change de carte
             updateDisplay();
         }
     });
+
+    // Fonction pour afficher l'élément précédent
     document.getElementById('prev-item').addEventListener('click', () => {
         if (content.length > 0) {
-            currentIndex = (currentIndex - 1 + content.length) % content.length;
+            currentIndex = (currentIndex - 1 + content.length) % content.length; // Passe à l'élément précédent
+            showKey = true; // Toujours afficher la question (clé) lorsque l'on change de carte
             updateDisplay();
         }
     });
+
+    // Met à jour l'affichage en fonction de l'état de showKey
     function updateDisplay() {
         if (content.length > 0) {
             display.innerText = showKey ? content[currentIndex].key : content[currentIndex].value || "Valeur vide";
@@ -38,5 +69,7 @@
             display.innerText = "Aucun contenu";
         }
     }
+
+    // Initialiser l'affichage
     updateDisplay();
 </script>

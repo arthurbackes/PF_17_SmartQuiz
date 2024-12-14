@@ -1,34 +1,28 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
-const ListSchema = mongoose.Schema(
+const ListSchema = new mongoose.Schema(
     {
-        user_id: {
-            type: BigInt,
-            default: 1
-        },
         name: {
             type: String,
-            required: [true, "Please provide a name"], // Correction du message d'erreur
+            required: [true, "Veuillez fournir un nom"],
         },
         content: {
             type: [
                 {
-                    _id: { type: mongoose.Schema.Types.ObjectId, default: () => new mongoose.Types.ObjectId() },
-                    key: { type: String, required: true }, // Exemples de champs dans chaque objet
-                    value: { type: String, required: false }, 
-                }
+                    _id: {
+                        type: mongoose.Schema.Types.ObjectId,
+                        default: () => new mongoose.Types.ObjectId(),
+                    },
+                    key: { type: String, required: true },
+                    value: { type: String, required: true },
+                },
             ],
-            default: [
-                {
-                    key: "key",
-                    value: "value"
-                }
-            ], // Initialiser avec un tableau vide par défaut si aucune valeur n'est fournie
-        }
+            default: [],
+        },
     },
     {
         timestamps: true,
     }
 );
 
-module.exports = mongoose.model("List", ListSchema);
+module.exports = mongoose.models.List || mongoose.model("List", ListSchema);

@@ -1,13 +1,19 @@
-<main class="flex flex-col items-center">
-    <h1 class="font-bold  text-4xl mt-6 text-deepBlue">Choisir une liste pour faire un test</h1>
-    <div class="mt-6 flex flex-col w-full max-w-lg">
-        <% lists.forEach(list => { %>
-            <a
-                    class="border bg-white border-oceanBlue rounded-md p-4 mb-4 text-center text-lg font-medium text-deepBlue hover:bg-oceanBlue hover:text-white hover:border-oceanBlue transition-all"
-                    href="/list/<%= list._id %>"
-            >
-                <%= list.name %>
-            </a>
-        <% }) %>
-    </div>
-</main>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Listes de Test</title>
+</head>
+<body>
+    <h1>Choisissez une liste pour le test</h1>
+    <% if (lists.length > 0) { %>
+        <ul>
+            <% lists.forEach(list => { %>
+                <li><a href="/test/<%= list._id %>"><%= list.name %></a></li>
+            <% }); %>
+        </ul>
+    <% } else { %>
+        <p>Aucune liste disponible.</p>
+    <% } %>
+</body>
+</html>
