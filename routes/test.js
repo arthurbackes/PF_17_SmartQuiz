@@ -1,13 +1,14 @@
 const express = require("express");
 const router = express.Router();
 const List = require("../models/list");
+const User = require("../models/user");
 
-router.get("/", async (req, res) =>{
+router.get("/", async (req, res) => {
     try {
         const lists = await List.find({ user_email: req.session.user.email });
-        res.render("test/index", {lists: lists})
+        res.render("test/index", { lists: lists });
     } catch {
-        res.redirect("/test")
+        res.redirect("/test");
     }
 });
 
@@ -18,8 +19,7 @@ router.get("/:id", async (req, res) => {
             return res.status(404).send("Liste non trouvée");
         }
 
-        // Si une clé et une réponse sont fournies dans les requêtes, effectuez la vérification
-        const { key, userAnswer } = req.query; // On récupère les valeurs depuis la requête
+        const { key, userAnswer } = req.query;
         let result = null;
 
         if (key && userAnswer) {
@@ -30,12 +30,19 @@ router.get("/:id", async (req, res) => {
                     isCorrect: item.value === userAnswer,
                     correctValue: item.value,
                 };
+
+                if (result.isCorrect) {
+                    const user = await User.findOne({ email: req.session.user.email });
+                    if (user) {
+                        user.points += 1;
+                        await user.save();
+                    }
+                }
             } else {
                 result = { error: "Clé introuvable" };
             }
         }
 
-        // Sélectionnez une clé aléatoire s'il n'y a pas encore de vérification
         const randomItem = key ? list.content.find((item) => item.key === key) : list.content[Math.floor(Math.random() * list.content.length)];
 
         res.render("test/test", { list, randomItem, result });
@@ -44,9 +51,5 @@ router.get("/:id", async (req, res) => {
         res.redirect("/");
     }
 });
-
-
-
-// Vérifier la réponse soumise par l'utilisateur
 
 module.exports = router;
