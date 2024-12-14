@@ -27,7 +27,7 @@ router.get("/:id", async (req, res) => {
 
 // Ajouter une nouvelle liste
 router.post("/", async (req, res) => {
-    const list = new List({ name: req.body.name });
+    const list = new List({ name: req.body.name, user_email: req.session.user.email });
     try {
         const newList = await list.save();
         res.redirect(`/list`);

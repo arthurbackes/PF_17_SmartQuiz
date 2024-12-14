@@ -6,6 +6,10 @@ const ListSchema = new mongoose.Schema(
             type: String,
             required: [true, "Veuillez fournir un nom"],
         },
+        user_email: {
+            type: String,
+            required: [true, "Email user"]
+        },
         content: {
             type: [
                 {
