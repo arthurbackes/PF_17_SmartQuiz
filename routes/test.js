@@ -4,7 +4,7 @@ const List = require("../models/list");
 
 router.get("/", async (req, res) =>{
     try {
-        const lists = await List.find({});
+        const lists = await List.find({ user_email: req.session.user.email });
         res.render("test/index", {lists: lists})
     } catch {
         res.redirect("/test")
