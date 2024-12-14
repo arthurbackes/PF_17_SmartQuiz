@@ -45,6 +45,14 @@ app.use((req, res, next) => {
     next()
 });
 
+function isAuthenticated(req, res, next) {
+    if (req.session.isAuthenticated) {
+        return next(); // Utilisateur connecté, continue.
+    }
+    res.redirect('/user/login'); // Redirige vers la page de connexion.
+}
+
+
 
 // Modification ici pour analyser les données de formulaire correctement
 app.use(bodyParser.urlencoded({ limit: "10mb", extended: true })); // Changer extended à true
@@ -53,11 +61,18 @@ app.use(express.json());
 
 // Routes
 app.use("/", indexRouter);
-app.use("/list", listsRouter);
-app.use("/edit", editListRouter);
-app.use("/flashcard", flashcardRouter);
-app.use("/test", testRouter);
+app.use("/list", isAuthenticated, listsRouter);
+app.use("/edit", isAuthenticated, editListRouter);
+app.use("/flashcard", isAuthenticated, flashcardRouter);
+app.use("/test", isAuthenticated, testRouter);
 app.use("/user", userRouter);
+app.use((req, res, next) => {
+    if (req.session.isAuthenticated || req.path.startsWith('/user')) {
+        return next(); // Accès autorisé si connecté ou si sur une route publique.
+    }
+    res.redirect('/user/login'); // Redirige si non connecté.
+});
+
 
 
 
