@@ -5,7 +5,7 @@ const List = require("../models/list");
 // Afficher toutes les listes
 router.get("/", async (req, res) => {
     try {
-        const lists = await List.find({});
+        const lists = await List.find({ user_email: req.session.user.email });
         res.render("lists/index", { lists });
     } catch (error) {
         console.error(error);
