@@ -1,23 +1,28 @@
 <main class="flex flex-col text-center justify-center items-center w-full">
-    <h2 class="font-bold text-4xl mt-6 text-deepBlue">New List</h2>
-    <form action="list" method="POST" class="bg-white border-4 border-solid border-oceanBlue rounded-2xl p-10 flex flex-col gap-4 mt-10">
-        <div>
-            <label for="">Name of the list</label>
-            <input type="text" name="name" placeholder="" class="border-solid border-oceanBlue border-2 rounded-lg ml-2">
+
+    <% if(isAuthenticated) {%>
+        <h2 class="font-bold text-4xl mt-6 text-deepBlue">New List</h2>
+        <form action="list" method="POST" class="bg-white border border-oceanBlue rounded-2xl p-10 flex flex-col gap-4 mt-10">
+            <div>
+                <label for="">Name of the list</label>
+                <input type="text" name="name" placeholder="" class="border border-oceanBlue rounded-lg ml-2">
+            </div>
+            <button type="submit" class="bg-lightBlue rounded-2xl py-2 p-4 hover:bg-oceanBlue hover:text-white">Create</button>
+        </form>
+        <div class="flex flex-col">
+            <h1 class="font-bold text-4xl mt-6 mb-2 text-deepBlue">All our list</h1>
+            <div class="mt-6 flex flex-col w-full max-w-lg">
+                <% lists.forEach(list => { %>
+                    <a
+                            class="border bg-white border-oceanBlue rounded-md p-4 mb-4 text-center text-lg font-medium text-deepBlue hover:bg-oceanBlue hover:text-white hover:border-oceanBlue transition-all"
+                            href="/list/<%= list._id %>"
+                    >
+                        <%= list.name %>
+                    </a>
+                <% }) %>
+            </div>
         </div>
-        <button type="submit" class="bg-lightBlue rounded-2xl py-2 p-4 hover:bg-oceanBlue hover:text-white">Create</button>
-    </form>
-    <div class="flex flex-col">
-        <h1 class="font-bold text-4xl mt-6 mb-2 text-deepBlue">All our list</h1>
-        <div class="mt-6 flex flex-col w-full max-w-lg">
-            <% lists.forEach(list => { %>
-                <a
-                        class="border bg-white border-oceanBlue rounded-md p-4 mb-4 text-center text-lg font-medium text-deepBlue hover:bg-oceanBlue hover:text-white hover:border-oceanBlue transition-all"
-                        href="/list/<%= list._id %>"
-                >
-                    <%= list.name %>
-                </a>
-            <% }) %>
-        </div>
-    </div>
+    <%} else {%>
+            <h1 class="font-bold text-xl mt-6 text-deepBlue">Pour pouvoir crée vos propres listes et rejoindre le classements, vous devez vous <a class="hover:text-oceanBlue" href="/user/signup">crée un compte</a></h1>
+    <% } %>
 </main>
