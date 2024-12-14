@@ -40,17 +40,17 @@ app.use(bodyParser.urlencoded({ limit: "10mb", extended: false }));
 app.use(methodOverride('_method'));
 
 
-//itiliser isAuthenticated dans les fichiers .ejs
-app.use((req, res, next) => {
-    res.locals.isAuthenticated = req.session.isAuthenticated || false;
-    next();
-});
 
 
 
 // Middleware
 app.use(express.json());
 
+//itiliser isAuthenticated dans les fichiers .ejs (local permet de stock valeur dans express pour utiliser dans le render)
+app.use((req, res, next) => {
+    res.locals.isAuthenticated = req.session.isAuthenticated || false;
+    next()
+});
 
 
 app.use("/", indexRouter);
@@ -59,6 +59,7 @@ app.use("/edit", editListRouter);
 app.use("/flashcard", flashcardRouter);
 app.use("/test", testRouter);
 app.use("/user", userRouter);
+
 
 
 
