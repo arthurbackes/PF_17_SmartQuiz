@@ -19,6 +19,9 @@
                     >
                         <%= list.name %>
                     </a>
+                    <form action="list/<%= list._id %>?_method=DELETE" method="POST">
+                        <button type="submit">supprimer</button>
+                    </form>
                 <% }) %>
             </div>
         </div>
