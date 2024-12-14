@@ -1,19 +1,6 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <title>Listes de Test</title>
-</head>
-<body>
-    <h1>Choisissez une liste pour le test</h1>
-    <% if (lists.length > 0) { %>
-        <ul>
-            <% lists.forEach(list => { %>
-                <li><a href="/test/<%= list._id %>"><%= list.name %></a></li>
-            <% }); %>
-        </ul>
-    <% } else { %>
-        <p>Aucune liste disponible.</p>
-    <% } %>
-</body>
-</html>
+<h1>Choisir une liste pour faire un test</h1>
+<% lists.forEach(list => { %>
+    <div>
+        <a href="/test/<%= list._id %>/"><%= list.name %></a>
+    </div>
+<% }) %>
