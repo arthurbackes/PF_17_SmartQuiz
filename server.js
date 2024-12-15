@@ -29,7 +29,7 @@ app.use(session({
         maxAge: 24 * 60 * 60 * 1000,
         httpOnly: true,
     }, //cookie de 24h
-}))
+}));
 
 app.set("view engine", "ejs");
 app.set("views", __dirname + "/views");
@@ -51,7 +51,7 @@ function isAuthenticated(req, res, next) {
         return next(); // Utilisateur connecté, continue.
     }
     res.redirect('/user/login'); // Redirige vers la page de connexion.
-}
+};
 
 
 
