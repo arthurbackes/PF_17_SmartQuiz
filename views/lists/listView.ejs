@@ -28,7 +28,11 @@
 
     <% if (editPerm) { %>
         <a class="font-bold hover:bg-oceanBlue mt-8 bg-skyBlue py-2 px-3 rounded-xl text-white" href="/edit/<%= list._id %>/">Modifier cette liste</a>
+        <form action="list/<%= list._id %>?_method=DELETE" method="POST">
+            <button class="bg-red-500 p-4 rounded-xl" type="submit">Supprimer</button>
+        </form>
     <% } %>
+
 
     <% if (list.content.length > 0) { %>
         <a class="font-bold hover:text-oceanBlue mt-8" href="/flashcard/<%= list._id %>/">Flashcard</a>

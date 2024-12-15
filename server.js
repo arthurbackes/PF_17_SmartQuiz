@@ -14,6 +14,7 @@ const flashcardRouter = require("./routes/flashcards");
 const testRouter = require("./routes/test");
 const userRouter = require("./routes/user");
 const allListsRouter = require("./routes/all-lists");
+const classementRouter = require("./routes/classement");
 
 const app = express();
 
@@ -68,6 +69,7 @@ app.use("/flashcard", isAuthenticated, flashcardRouter);
 app.use("/test", isAuthenticated, testRouter);
 app.use("/user", userRouter);
 app.use("/all-lists", allListsRouter);
+app.use("classement", classementRouter);
 app.use((req, res, next) => {
     if (req.session.isAuthenticated || req.path.startsWith('/user')) {
         return next(); // Accès autorisé si connecté ou si sur une route publique.
