@@ -13,9 +13,9 @@
     <% if (result.error) { %>
         <p style="color: red;">Erreur : <%= result.error %></p>
     <% } else if (result.isCorrect) { %>
-        <p style="color: green;">Bonne réponse ! 🎉</p>
+        <p style="color: green;">Bonne réponse !</p>
     <% } else { %>
-        <p style="color: red;">Mauvaise réponse. 😢</p>
+        <p style="color: red;">Mauvaise réponse.</p>
         <p>La réponse correcte était : <strong><%= result.correctValue %></strong></p>
     <% } %>
 

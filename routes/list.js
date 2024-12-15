@@ -19,8 +19,10 @@ router.get("/:id", async (req, res) => {
         const list = await List.findById(req.params.id);
         if (!list) return res.status(404).send("Liste introuvable");
         const useremail = req.session.user.email;
-        console.log(useremail, list.user_email)
+        console.log(useremail, list.user_email);
+        
         let editPerm = false;
+        let empty = false;
         if (list.user_email == useremail) {
             editPerm = true;
         }
