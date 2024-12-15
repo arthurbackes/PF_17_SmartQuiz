@@ -11,6 +11,9 @@
     </ul>
     <% if (editPerm) { %>
         <a class="font-bold hover:text-oceanBlue mt-8" href="/edit/<%= list._id %>/">Modifier cette liste</a>
+        <form action="/list/<%= list._id%>?_method=DELETE" method="POST">
+            <button type="submit">Supprimer</button>
+        </form>
     <% } %>
 
     <% if (list.content.length > 0) { %>
