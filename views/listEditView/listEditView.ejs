@@ -1,28 +1,56 @@
-<h2>Modification</h2>
-<div>
-    <h1><%= list.name %></h1>
+<section class="flex flex-col justify-center items-center gap-4 text-center">
+    <h2 class="font-bold text-2xl mt-6 text-deepBlue">Modification</h2>
+    <div>
+        <h1 class="text-xl font-bold mb-4"><%= list.name %></h1>
+    </div>
+    <ul>
+        <!-- Formulaire pour ajouter un nouvel élément -->
+        <form action="content/" method="POST">
+            <input type="text" name="key" placeholder="Key" required>
+            <input type="text" name="value" placeholder="Value">
+            <br>
+            <button class="mt-6 bg-green-500 hover:bg-green-700 text-white py-2 px-3 rounded-xl" type="submit">Ajouter</button>
+        </form>
+        <br>
+        <div class="container mx-auto p-4">
+            <h1 class="text-2xl font-bold mb-4">Liste des éléments</h1>
+            <div class="overflow-x-auto">
+                <table class="min-w-full bg-white border rounded shadow-md">
+                    <thead>
+                    <tr class="bg-gray-200 text-gray-700 uppercase text-sm leading-normal">
+                        <th class="py-3 px-6 text-left">Clé</th>
+                        <th class="py-3 px-6 text-left">Valeur</th>
+                        <th class="py-3 px-6 text-center">Supprimer</th>
+                    </tr>
+                    </thead>
+                    <tbody class="text-gray-600 text-sm font-light">
+                    <% list.content.forEach((item, index) => { %>
+                        <tr class="border-b border-gray-200 hover:bg-gray-100">
+                            <td class="py-3 px-6 text-left whitespace-nowrap">
+                                <%= item.key %>
+                            </td>
+                            <td class="py-3 px-6 text-left">
+                                <%= item.value %>
+                            </td>
+                            <td class="py-3 px-6 text-center">
+                                <form action="deleteitem/<%= item._id %>?_method=DELETE" method="POST">
+                                    <button
+                                            type="submit"
+                                            class="bg-red-500 text-white py-1 px-4 rounded hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-300">
+                                        Supprimer
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    <% }) %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+    </ul>
     <form action="deletelist?_method=DELETE" method="POST">
-        <button type="submit">Supprimer la liste</button>
+        <button class="bg-red-500 hover:bg-red-700 py-2 px-3 rounded-xl text-white" type="submit">Supprimer la liste</button>
     </form>
-</div>
-<ul>
-    <!-- Formulaire pour ajouter un nouvel élément -->
-    <form action="content/" method="POST">
-        <input type="text" name="key" placeholder="Key" required>
-        <input type="text" name="value" placeholder="Value">
-        <button type="submit">Ajouter</button>
-    </form>
-    <br>
-    <!-- Affichage des éléments existants -->
-    <% list.content.forEach((item, index) => { %>
-    <form action="deleteitem/<%= item._id %>?_method=DELETE" method="POST">
-        <li>
-            <strong><%= item.key %>:</strong> <%= item.value %>
-            <button type="submit">Supprimer</button>
-        </li>
-    </form>
-    <% }) %>
-    
-</ul>
-<a href="/edit/<%= list._id %>/">Modifier cette liste</a>
-<a href="/">Retour à la liste principale</a>
+</section>

@@ -1,24 +1,50 @@
-<h1>Test : <%= list.name %></h1>
+<section class="min-h-screen flex flex-col items-center bg-gray-100 p-6">
+    <!-- Titre principal -->
+    <h1 class="text-4xl font-bold text-oceanBlue mt-6 mb-4">Test : <%= list.name %></h1>
 
-<p>Quelle est la valeur pour la clé suivante ?</p>
-<h2><%= randomItem.key %></h2>
+    <div class="bg-white rounded-lg p-6 w-full text-center w-6/12">
+        <p class="text-lg font-medium ">Quelle est la valeur pour la clé suivante ?</p>
+        <h2 class="text-2xl font-bold text-deepBlue mt-4 mb-6"><%= randomItem.key %></h2>
 
-<form method="GET" action="/test/<%= list._id %>">
-    <input type="hidden" name="key" value="<%= randomItem.key %>">
-    <input type="text" name="userAnswer" placeholder="Votre réponse" required>
-    <button type="submit">Vérifier</button>
-</form>
+        <form method="GET" action="/test/<%= list._id %>" class="flex flex-col gap-4">
+            <input type="hidden" name="key" value="<%= randomItem.key %>">
+            <input
+                    type="text"
+                    name="userAnswer"
+                    placeholder="Votre réponse"
+                    required
+                    class="w-full px-4 py-2 border rounded-lg"
+            >
+            <button
+                    type="submit"
+                    class="bg-oceanBlue text-white px-4 py-2 rounded-lg hover:bg-deepBlue"
+            >
+                Vérifier
+            </button>
+        </form>
 
-<% if (result) { %>
-    <% if (result.error) { %>
-        <p style="color: red;">Erreur : <%= result.error %></p>
-    <% } else if (result.isCorrect) { %>
-        <p style="color: green;">Bonne réponse !</p>
-    <% } else { %>
-        <p style="color: red;">Mauvaise réponse.</p>
-        <p>La réponse correcte était : <strong><%= result.correctValue %></strong></p>
-    <% } %>
+        <% if (result) { %>
+            <div class="mt-6">
+                <% if (result.error) { %>
+                    <p class="text-red-500 font-medium">Erreur : <%= result.error %></p>
+                <% } else if (result.isCorrect) { %>
+                    <p class="text-green-500 font-medium">Bonne réponse !</p>
+                <% } else { %>
+                    <p class="text-red-500 font-medium">Mauvaise réponse.</p>
+                    <p class="text-gray-700">La réponse correcte était :
+                        <strong class="text-deepBlue"><%= result.correctValue %></strong>
+                    </p>
+                <% } %>
+            </div>
 
-    <br>
-    <button><a href="/test/<%= list._id %>">Passer à la question suivante</a></button>
-<% } %>
+            <div class="mt-4">
+                <a
+                        href="/test/<%= list._id %>"
+                        class="inline-block bg-oceanBlue text-white px-4 py-2 rounded-lg hover:bg-deepBlue"
+                >
+                    Passer à la question suivante
+                </a>
+            </div>
+        <% } %>
+    </div>
+</section>
