@@ -13,6 +13,7 @@ const editListRouter = require("./routes/editList");
 const flashcardRouter = require("./routes/flashcards");
 const testRouter = require("./routes/test");
 const userRouter = require("./routes/user");
+const allListsRouter = require("./routes/all-lists");
 
 const app = express();
 
@@ -66,6 +67,7 @@ app.use("/edit", isAuthenticated, editListRouter);
 app.use("/flashcard", isAuthenticated, flashcardRouter);
 app.use("/test", isAuthenticated, testRouter);
 app.use("/user", userRouter);
+app.use("/all-lists", allListsRouter);
 app.use((req, res, next) => {
     if (req.session.isAuthenticated || req.path.startsWith('/user')) {
         return next(); // Accès autorisé si connecté ou si sur une route publique.
@@ -83,7 +85,7 @@ mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopol
     .catch(err => console.error('Erreur de connexion à MongoDB :', err));
 
 // Démarrage du serveur
-const PORT = process.env.PORT || 3002;
+const PORT = process.env.PORT || 3003;
 app.listen(PORT, () => {
     console.log(`Serveur démarré sur le port ${PORT}`);
 });

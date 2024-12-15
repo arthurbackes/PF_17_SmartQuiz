@@ -18,7 +18,13 @@ router.get("/:id", async (req, res) => {
     try {
         const list = await List.findById(req.params.id);
         if (!list) return res.status(404).send("Liste introuvable");
-        res.render("lists/listView", { list });
+        const useremail = req.session.user.email;
+        console.log(useremail, list.user_email)
+        let editPerm = false;
+        if (list.user_email == useremail) {
+            editPerm = true;
+        }
+        res.render("lists/listView", { list, editPerm });
     } catch (error) {
         console.error(error);
         res.redirect("/");

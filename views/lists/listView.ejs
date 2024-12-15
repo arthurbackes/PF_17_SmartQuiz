@@ -9,6 +9,9 @@
             </li>
         <% }) %>
     </ul>
-    <a class="font-bold hover:text-oceanBlue mt-8" href="/edit/<%= list._id %>/">Modifier cette liste</a>
-    <a class="font-bold hover:text-oceanBlue" href="/">Retour à la liste principale</a>
+    <% if (editPerm) { %>
+        <a class="font-bold hover:text-oceanBlue mt-8" href="/edit/<%= list._id %>/">Modifier cette liste</a>
+    <% } %>
+    
+
 </main>
