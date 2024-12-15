@@ -9,6 +9,16 @@
             </li>
         <% }) %>
     </ul>
-    <a class="font-bold hover:text-oceanBlue mt-8" href="/edit/<%= list._id %>/">Modifier cette liste</a>
-    <a class="font-bold hover:text-oceanBlue" href="/">Retour à la liste principale</a>
+    <% if (editPerm) { %>
+        <a class="font-bold hover:text-oceanBlue mt-8" href="/edit/<%= list._id %>/">Modifier cette liste</a>
+    <% } %>
+
+    <% if (list.content.length > 0) { %>
+        <a class="font-bold hover:text-oceanBlue mt-8" href="/flashcard/<%= list._id %>/">Flashcard</a>
+        <a class="font-bold hover:text-oceanBlue mt-8" href="/test/<%= list._id %>/">Test</a>
+    <% } else { %>
+        <h3>La liste est vide</h3>
+    <% } %>
+    
+
 </main>
