@@ -21,15 +21,17 @@
         <% if (!isAuthenticated) { %>
             <ul class="flex gap-6 mr-2">
                 <li>
-                    <a href="/user/signup" class="hover:text-oceanBlue font-bold cursor-pointer">Créer un compte</a>
+                    <a href="/user/signup" class="hover:text-oceanBlue font-bold cursor-pointer whitespace-nowrap">Créer un compte</a>
                 </li>
                 <li>
-                    <a href="/user/login" class="hover:text-oceanBlue font-bold cursor-pointer mr-2">Se connecter</a>
+                    <a href="/user/login" class="hover:text-oceanBlue font-bold cursor-pointer mr-2 whitespace-nowrap">Se connecter</a>
                 </li>
             </ul>
         <% } else { %>
-            <a href="/user/profile" class="hover:text-oceanBlue font-bold cursor-pointer">Mon profil</a>
-            <a href="/user/logout" class="hover:text-oceanBlue font-bold cursor-pointer">Déconnexion</a>
+            <div class="flex gap-8 items-center justify-center">
+                <a href="/user/profile" class="hover:text-oceanBlue font-bold cursor-pointer whitespace-nowrap">Mon profil</a>
+                <a href="/user/logout" class="hover:text-oceanBlue font-bold cursor-pointer">Déconnexion</a>
+            </div>
         <% }%>
     </nav>
 </header>
