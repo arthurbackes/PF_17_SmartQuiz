@@ -1,5 +1,22 @@
 <div class="flex flex-col items-center justify-center">
     <h1 class="font-bold text-4xl mt-6 mb-2 text-deepBlue">Toutes les listes</h1>
+    <form action="search" method="POST">
+        <input type="text" name="name" placeholder="Entrez un début de nom" required>
+        <button type="submit">Rechercher</button>
+    </form>
+    <% if (results) { %>
+        <h2>Résultats</h2>
+        <% results.forEach(r => { %>
+            <a
+                    class="border bg-white border-oceanBlue rounded-md p-4 mb-4 text-center text-lg font-medium text-deepBlue hover:bg-oceanBlue hover:text-white hover:border-oceanBlue transition-all"
+                    href="/list/<%= r._id %>"
+            >
+                <%= r.name %>
+            </a>
+        <% }) %>
+    <% } %>
+
+    </form>
     <div class="mt-6 flex flex-col w-full max-w-lg">
         <% lists.forEach(list => { %>
             <a
