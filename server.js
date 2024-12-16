@@ -68,8 +68,8 @@ app.use("/edit", isAuthenticated, editListRouter);
 app.use("/flashcard", isAuthenticated, flashcardRouter);
 app.use("/test", isAuthenticated, testRouter);
 app.use("/user", userRouter);
-app.use("/all-lists", allListsRouter);
-app.use("classement", classementRouter);
+app.use("/all-lists", isAuthenticated, allListsRouter);
+app.use("/classement", isAuthenticated, classementRouter);
 app.use((req, res, next) => {
     if (req.session.isAuthenticated || req.path.startsWith('/user')) {
         return next(); // Accès autorisé si connecté ou si sur une route publique.
