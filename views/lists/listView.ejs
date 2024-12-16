@@ -28,7 +28,7 @@
 
     <% if (editPerm) { %>
         <a class="font-bold hover:bg-oceanBlue mt-8 bg-skyBlue py-2 px-3 rounded-xl text-white" href="/edit/<%= list._id %>/">Modifier cette liste</a>
-        <form action="list/<%= list._id %>?_method=DELETE" method="POST">
+        <form action="/list/<%= list._id %>?_method=DELETE" method="POST">
             <button class="bg-red-500 hover:bg-red-700 text-white py-2 px-3 mt-4 rounded-xl" type="submit">Supprimer</button>
         </form>
     <% } %>
