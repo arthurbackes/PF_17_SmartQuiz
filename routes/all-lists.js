@@ -12,10 +12,10 @@ router.get("/", async (req, res) => {
 })
 
 router.post("/search", async (req, res) => {
-    const nameQuery = req.body.name || '';
+    const nameList = req.body.name;
     try {
         const lists = await List.find({});
-        const results = await List.find({name: { $regex: `^${nameQuery}`, $options: 'i' }});
+        const results = await List.find({name: { $regex: `^${nameList}`, $options: 'i' }});
         console.log(results, req.body.name)
         res.render('lists/all-lists', { lists, results }); 
     } catch (err) {
