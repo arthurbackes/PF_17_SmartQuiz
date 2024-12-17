@@ -2,12 +2,12 @@ Lancer le terminal et écrire les différentes commandes
 
 npm install // installer toutes les dépendances pour faire fonctionner le projet, le fichier node_modules va s’installer  crée un fichier .env et lancer une base de donnés sur mangodb, le plus simple et d’ouvrir un cluster et d’y récupéré un lien.
 
-Crée une égalité MONGO_URI
+Crée une égalité MONGO_URI dans le fichier .env
 
 Voici un example :
 
 MONGO_URI=mongodb+srv://<Pseudo>:<MOTDEPASSE>@cluster0.rpixx.mongodb.net/
- Remplacer Pseudo et MOTDEPASSE par ceux donner par mangodb
+ Remplacer Pseudo et MOTDEPASSE par ceux donner par mangodb lors de la création de la base de données
 
 On doit également ajouter dans le fichier .env "SESSION_SECRET=MOTDEPASSE", ce mot de passe que vous choissisez est celui de la création de session
 
