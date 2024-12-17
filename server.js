@@ -27,6 +27,15 @@ app.use(session({
   cookie: { maxAge: 24 * 60 * 60 * 1000, httpOnly: true }
 }));
 
+function isAuthenticated(req, res, next) {
+  if (req.session && req.session.isAuthenticated) {
+    return next();
+  } else {
+    res.redirect('/user/login');
+  }
+}
+
+
 // Middleware pour passer `isAuthenticated` à toutes les vues
 app.use((req, res, next) => {
   res.locals.isAuthenticated = req.session.isAuthenticated || false;
@@ -44,13 +53,13 @@ app.use(express.json());
 app.use(bodyParser.urlencoded({ limit: "10mb", extended: true }));
 
 // Routes
-app.use("/", indexRouter);
-app.use("/list", listsRouter);
+app.use("/",  indexRouter);
+app.use("/list",isAuthenticated, listsRouter);
 app.use("/edit", editListRouter);
-app.use("/flashcard", flashcardRouter);
-app.use("/test", testRouter);
+app.use("/flashcard", isAuthenticated, flashcardRouter);
+app.use("/test", isAuthenticated, testRouter);
 app.use("/user", userRouter);
-app.use("/all-lists", allListsRouter);
+app.use("/all-lists", isAuthenticated, allListsRouter);
 app.use("/classement", classementRouter);
 
 // Connexion à MongoDB
