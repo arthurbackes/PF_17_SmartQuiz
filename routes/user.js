@@ -3,11 +3,11 @@ const router = express.Router();
 const userCtrl = require('../controllers/user');
 
 router.get('/signup', (req, res) => {
-    res.render('user/signup');
+    res.render('user/signup', { errorMail: false});
 });
 
 router.get('/login', (req, res) => {
-    res.render('user/login');
+    res.render('user/login', { errorLogIn: false});
 });
 
 router.get('/logout', (req, res) => {

@@ -9,6 +9,9 @@
                 <label for="password">Mot de passe:</label>
                 <input class="border-solid border-black border-2 rounded-xl text-center" type="password" id="password" name="password" required>
                 <br>
+                <% if(errorLogIn) {%>
+                    <p class="text-center text-red-600 pb-4 font-bold uppercase">Email ou mot de passe incorrect</p>
+                <%} %>
                 <button class="bg-lightBlue rounded-2xl py-2 hover:bg-skyBlue" type="submit">Se connecter</button>
             </form>
             <a href="/user/signup" class="italic cursor-pointer font-thin hover:text-oceanBlue ">Pas de compte ? Créer un compte ici</a>

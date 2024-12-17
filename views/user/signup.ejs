@@ -12,6 +12,9 @@
                 <label for="password">Mot de passe:</label>
                 <input class="border-solid border-black border-2 rounded-xl text-center" type="password" id="password" name="password" required>
                 <br>
+                <% if(errorMail) {%>
+                    <p class="text-center text-red-600 pb-4 font-bold uppercase">Email déja utilisé</p>
+                <%} %>
                 <button class="bg-lightBlue rounded-2xl py-2 hover:bg-skyBlue" type="submit">Créer un compte</button>
             </form>
             <a href="/user/login" class="italic font-thin mt-6 hover:text-oceanBlue cursor-pointer">Déjà un compte ? Se connecter ici.</a>

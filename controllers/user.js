@@ -17,7 +17,11 @@ exports.signup = (req, res, next) => {
                     req.session.isAuthenticated = true;
                     res.redirect("/");
                 })
-                .catch(err => res.status(400).json({ error: "Email utilisé" }));
+                .catch(err => {
+                    {
+                        const errorMail = true
+                        res.render("user/signup", {errorMail})}
+                });
         })
         .catch((err) => {
             res.status(500).json({ error: "Erreur serveur" });
@@ -28,12 +32,14 @@ exports.login = (req, res, next) => {
     User.findOne({ email: req.body.email })
         .then((user) => {
             if (!user) {
-                return res.status(401).json({ message: "Utilisateur ou mot de passe incorrect" });
+                const errorLogIn = true
+                return res.render("user/login", {errorLogIn});
             }
             bcrypt.compare(req.body.password, user.password)
                 .then((valid) => {
                     if (!valid) {
-                        return res.status(401).json({ message: "Utilisateur ou mot de passe incorrect" });
+                        const errorLogIn = true
+                        return res.render("user/login", {errorLogIn});
                     }
                     req.session.user = {
                         email: user.email,
@@ -41,9 +47,9 @@ exports.login = (req, res, next) => {
                     req.session.isAuthenticated = true;
                     res.redirect("/");
                 })
-                .catch((err) => res.status(500).json({ error: err }));
+                .catch((err) => res.status(500).json({ error: "Erreur lors du hashage du mot de passe, relancez la page" }));
         })
-        .catch((err) => res.status(500).json({ error: err }));
+        .catch((err) => res.status(500).json({ error: "Erreur serveur" }));
 };
 
 exports.profile = (req, res, next) => {
